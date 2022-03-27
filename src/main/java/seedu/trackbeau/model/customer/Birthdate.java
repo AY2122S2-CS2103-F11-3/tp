@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 public class Birthdate {
     public static final String MESSAGE_CONSTRAINTS = "Birthdate should follow dd-mm-yyyy and be valid date.";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private static final String EMPTY_DATE = "01-01-1000"; //impossible date
+    public static final String EMPTY_DATE = "01-01-1000"; //impossible date
     public final LocalDate value;
 
 
@@ -41,11 +41,7 @@ public class Birthdate {
 
     @Override
     public String toString() {
-        if (this.equals(new Birthdate(EMPTY_DATE))) {
-            return "Birthday data not available.";
-        } else {
-            return formatter.format(value);
-        }
+        return formatter.format(value);
     }
 
     @Override

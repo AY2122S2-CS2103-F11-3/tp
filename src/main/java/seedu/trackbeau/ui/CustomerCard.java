@@ -1,5 +1,7 @@
 package seedu.trackbeau.ui;
 
+import static seedu.trackbeau.model.customer.Birthdate.EMPTY_DATE;
+
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -75,7 +77,7 @@ public class CustomerCard extends UiPart<Region> {
         } else {
             hairType.setManaged(false);
         }
-        if (customer.getBirthdate().toString() != "Birthday data not available.") {
+        if (!customer.getBirthdate().value.equals(EMPTY_DATE)) {
             birthDate.setText("Birthday: " + customer.getBirthdate().toString());
         } else {
             birthDate.setManaged(false);
