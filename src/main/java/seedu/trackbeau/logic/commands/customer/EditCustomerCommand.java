@@ -94,10 +94,17 @@ public class EditCustomerCommand extends Command {
 
         Customer customerToEdit = lastShownList.get(index.getZeroBased());
         Customer editedCustomer = createEditedCustomer(customerToEdit, editCustomerDescriptor);
-
-        if (customerToEdit.isSameItem(editedCustomer) && model.hasCustomer(editedCustomer)) {
+        if (customerToEdit.isDifferentItemFromOriginal(editedCustomer) && model.hasCustomer(editedCustomer)) {
             throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER);
         }
+
+        /*if (customerToEdit.isSameItem(editedCustomer) || model.hasCustomer(editedCustomer) {
+            throw new CommandException(MESSAGE_DUPLICATE_CUSTOMER
+                    + " "  + hasSameName + " " + hasSameEmail + " " + hasSamePhoneNumber);
+        }*/
+        //if have diff email, same phone, they are still considered to be the same person
+        //if model has this customer with same p or e, than there would be a clash
+        //problem: they should be considered a different person so if email or phone is different, return different
 
         model.setCustomer(customerToEdit, editedCustomer);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_CUSTOMERS);

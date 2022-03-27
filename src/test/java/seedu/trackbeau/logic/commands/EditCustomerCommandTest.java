@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_SERVICE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_STAFF_AMY;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -56,12 +55,14 @@ public class EditCustomerCommandTest {
         Index indexLastCustomer = Index.fromOneBased(model.getFilteredCustomerList().size());
         Customer lastCustomer = model.getFilteredCustomerList().get(indexLastCustomer.getZeroBased());
 
+        //amy cannot clash phone number or email with bob but they can have the same name
+
         CustomerBuilder customerInList = new CustomerBuilder(lastCustomer);
-        Customer editedCustomer = customerInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withStaffs(VALID_STAFF_AMY).withServices(VALID_SERVICE_BOB).build();
+        Customer editedCustomer = customerInList.withName(VALID_NAME_BOB)
+                .withStaffs(VALID_STAFF_AMY).withServices(VALID_SERVICE_BOB).build();
 
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withName(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).withStaffs(VALID_STAFF_AMY).withServices(VALID_SERVICE_BOB).build();
+                .withStaffs(VALID_STAFF_AMY).withServices(VALID_SERVICE_BOB).build();
         EditCustomerCommand editCustomerCommand = new EditCustomerCommand(indexLastCustomer, descriptor);
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
@@ -94,7 +95,11 @@ public class EditCustomerCommandTest {
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCustomerCommand editCustomerCommand =
             new EditCustomerCommand(INDEX_FIRST_CUSTOMER, new EditCustomerCommand.EditCustomerDescriptor());
+        System.out.println(editCustomerCommand.toString());
+
         Customer editedCustomer = model.getFilteredCustomerList().get(INDEX_FIRST_CUSTOMER.getZeroBased());
+
+        System.out.println(editedCustomer.toString());
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer);
 

@@ -4,11 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_ALLERGY_BOB;
+import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_BIRTHDATE_BOB;
+import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_HAIR_TYPE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_REG_DATE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_SERVICE_AMY;
+import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_SERVICE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_SKIN_TYPE_BOB;
 import static seedu.trackbeau.logic.commands.CommandTestUtil.VALID_STAFF_BOB;
 import static seedu.trackbeau.testutil.Assert.assertThrows;
@@ -35,22 +40,32 @@ public class CustomerTest {
         // null -> returns false
         assertFalse(ALICE.isSameItem(null));
 
-        // same name, all other attributes different -> returns true
-        Customer editedAlice = new CustomerBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withStaffs(VALID_STAFF_BOB).build();
+        // same name, same email, same phone, all other attributes different -> returns true
+        Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withStaffs(VALID_STAFF_BOB)
+                .withBirthdate(VALID_BIRTHDATE_BOB).withRegistrationDate(VALID_REG_DATE_BOB)
+                .withAllergies(VALID_ALLERGY_BOB).withServices(VALID_SERVICE_BOB).build();
         assertTrue(ALICE.isSameItem(editedAlice));
 
-        // different name, all other attributes same -> returns false
-        editedAlice = new CustomerBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        // different name, different phone, different email, all other attributes same -> returns false
+        editedAlice = new CustomerBuilder(ALICE).withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameItem(editedAlice));
 
-        // name differs in case, all other attributes same -> returns false
-        Customer editedBob = new CustomerBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        // name differs in case, different email, different phone,
+        // all other attributes same -> returns false
+        Customer editedBob = new CustomerBuilder(BOB)
+                .withName(VALID_NAME_BOB.toLowerCase())
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .build();
         assertFalse(BOB.isSameItem(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
         String nameWithTrailingSpaces = VALID_NAME_BOB + " ";
-        editedBob = new CustomerBuilder(BOB).withName(nameWithTrailingSpaces).build();
+        editedBob = new CustomerBuilder(BOB).withName(nameWithTrailingSpaces)
+                .withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .build();
         assertFalse(BOB.isSameItem(editedBob));
     }
 
