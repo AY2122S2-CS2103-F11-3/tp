@@ -100,7 +100,7 @@ public class Customer implements UniqueListItem {
     }
 
     /**
-     * Returns true if both customers have the same name.
+     * Returns true if both customers have the same name, phone number and email.
      * This defines a weaker notion of equality between two customers.
      */
     public boolean isSameItem(UniqueListItem other) {
@@ -113,9 +113,22 @@ public class Customer implements UniqueListItem {
         }
 
         Customer otherCustomer = (Customer) other;
-        return otherCustomer.getName().equals(getName());
+        return hasSameIdentity(otherCustomer);
     }
 
+    /**
+     * Returns true if two customers have same name or same phone number or same email
+     * @param otherCustomer
+     */
+    boolean hasSameIdentity(Customer otherCustomer) {
+        boolean hasSameName = otherCustomer.getName().equals(getName());
+        boolean hasSamePhoneNumber = otherCustomer.getPhone().equals(getPhone());
+        boolean hasSameEmail = otherCustomer.getEmail().equals(getEmail());
+        if (hasSameEmail || hasSameName || hasSamePhoneNumber) {
+            return true;
+        }
+        return false;
+    }
     /**
      * Returns true if both customers have the same identity and data fields.
      * This defines a stronger notion of equality between two customers.
