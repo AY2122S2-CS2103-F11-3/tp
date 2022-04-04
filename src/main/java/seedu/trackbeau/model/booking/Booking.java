@@ -26,7 +26,7 @@ public class Booking implements UniqueListItem, Comparable<Booking> {
      * Every field must be present and not null.
      */
     public Booking(Customer customer, Service service, BookingDateTime bookingDateTime, Feedback feedback) {
-        requireAllNonNull(bookingDateTime);
+        requireAllNonNull(customer, service, bookingDateTime, feedback);
         this.customer = customer;
         this.service = service;
         this.bookingDateTime = bookingDateTime;

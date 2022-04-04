@@ -76,7 +76,6 @@ class JsonAdaptedBooking {
                     BookingDateTime.class.getSimpleName()));
         }
         if (!BookingDateTime.isValidBookingDateTime(bookingDateTime)) {
-
             throw new IllegalValueException(BookingDateTime.MESSAGE_CONSTRAINTS);
         }
 

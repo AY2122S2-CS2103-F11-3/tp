@@ -7,7 +7,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class RegistrationDate {
+/**
+ * Represents a customer's registration date as a member in TrackBeau.
+ */
+public class RegistrationDate extends Date {
     public static final String MESSAGE_CONSTRAINTS = "RegistrationDate should follow dd-MM-yyyy and be valid date.";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final String EMPTY_DATE = "01-01-1000"; //impossible date
@@ -30,7 +33,10 @@ public class RegistrationDate {
      */
     public static boolean isValidRegistrationDate(String test) {
         try {
-            LocalDate.parse(test, formatter);
+            LocalDate userInputDate = LocalDate.parse(test, formatter);
+            if (!isSatisfyDateRequirements(test)) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }

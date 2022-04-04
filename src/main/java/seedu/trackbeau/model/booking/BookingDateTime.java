@@ -7,7 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class BookingDateTime {
+import seedu.trackbeau.model.customer.Date;
+
+public class BookingDateTime extends Date {
     public static final String MESSAGE_CONSTRAINTS =
             "BookingDateTime should follow dd-MM-yyyy HH:mm, and it should not be blank";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -31,6 +33,9 @@ public class BookingDateTime {
     public static boolean isValidBookingDateTime(String test) {
         try {
             LocalDateTime.parse(test, formatter);
+            if (!isNot29thFebruaryOnNonLeapYear(test)) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }

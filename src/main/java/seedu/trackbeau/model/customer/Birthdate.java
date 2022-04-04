@@ -7,8 +7,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Birthdate {
-    public static final String MESSAGE_CONSTRAINTS = "Birthdate should follow dd-MM-yyyy and be valid date.";
+/**
+ * Represents a customer's birthday in TrackBeau.
+ */
+public class Birthdate extends Date {
+    public static final String MESSAGE_CONSTRAINTS = "Birthdate should follow dd-MM-yyyy and be valid date."
+            + "Birthdate cannot be in the future.";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final LocalDate value;
 
@@ -30,13 +34,15 @@ public class Birthdate {
      */
     public static boolean isValidBirthdate(String test) {
         try {
-            LocalDate.parse(test, formatter);
+            LocalDate userInputDate = LocalDate.parse(test, formatter);
+            if (!isSatisfyDateRequirements(test)) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }
         return true;
     }
-
 
     @Override
     public String toString() {
