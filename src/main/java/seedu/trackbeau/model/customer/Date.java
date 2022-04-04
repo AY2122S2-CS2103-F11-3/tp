@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
  *
  */
 public abstract class Date {
-    private static int DATE_LENGTH = 10; //dd-mm-yyyy
+    private static final int DATE_LENGTH = 10; //dd-mm-yyyy
 
     static boolean isSatisfyDateRequirements(String test) {
         return isNotInFuture(test) && isNot29thFebruaryOnNonLeapYear(test);

@@ -145,8 +145,8 @@ public class ParserUtil {
      */
     public static Birthdate parseBirthdate(String birthDate) throws ParseException {
         requireNonNull(birthDate);
-        String trimmedbirthDate = birthDate.trim();
-        if (!Birthdate.isValidBirthdate(trimmedbirthDate)) {
+        String trimmedBirthDate = birthDate.trim();
+        if (!Birthdate.isValidBirthdate(trimmedBirthDate)) {
             throw new ParseException(Birthdate.MESSAGE_CONSTRAINTS);
         }
         return new Birthdate(birthDate);
@@ -162,7 +162,7 @@ public class ParserUtil {
         requireNonNull(regDate);
         String trimmedRegDate = regDate.trim();
         if (!RegistrationDate.isValidRegistrationDate(trimmedRegDate)) {
-            throw new ParseException(Birthdate.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RegistrationDate.MESSAGE_CONSTRAINTS);
         }
         return new RegistrationDate(regDate);
     }
